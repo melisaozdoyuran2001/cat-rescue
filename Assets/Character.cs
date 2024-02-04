@@ -5,12 +5,16 @@ using UnityEngine;
 public class Character : MonoBehaviour
 {
     public float jumpHeight = 10f;
-    public bool usingController = false; 
+    public bool usingController = false;
+    public Rigidbody2D RigidBody;
+    public CapsuleCollider2D capsuleCollider;
 
 
     void Start()
     {
         usingController = isControllerConnected();
+        RigidBody = GetComponent<Rigidbody2D>();
+        capsuleCollider = GetComponent<CapsuleCollider2D>();
     }
 
 
@@ -30,37 +34,138 @@ public class Character : MonoBehaviour
                 Jump();
             }
 
-            if (usingController)
+            //if (usingController)
+            //{
+            //    float horizontalInput = Input.GetAxis("Horizontal");
+            //    //if (horizontalInput > 0)
+            //    //{
+            //    //    transform.right = Vector2.right;
+            //    //}
+            //    //else if (horizontalInput < 0)
+            //    //{
+            //    //    transform.right = Vector2.left;
+            //    //}
+            //    if (horizontalInput == 0)
+            //    {
+            //        RigidBody.velocity = new Vector2(0, RigidBody.velocity.y);
+            //    }
+            //    else if (horizontalInput > 0)
+            //    {
+            //        transform.right = Vector2.right;
+            //        RigidBody.velocity = new Vector2(transform.right.x * 2, RigidBody.velocity.y);
+            //    }
+            //    else if (horizontalInput < 0)
+            //    {
+            //        transform.right = Vector2.left;
+            //        RigidBody.velocity = new Vector2(transform.right.x * -2, RigidBody.velocity.y);
+
+            //    }
+            //    else
+            //    {
+            //        RigidBody.velocity = new Vector2(0, RigidBody.velocity.y);
+            //    }
+            //}
+            //else
+            //{
+            //    //if (Input.GetKeyDown(KeyCode.LeftArrow))
+            //    //{
+            //    //    transform.right = Vector2.left;
+            //    //}
+            //    //if (Input.GetKeyDown(KeyCode.RightArrow))
+            //    //{
+            //    //    transform.right = Vector2.right;
+
+            //    //}
+            //    if (Input.GetKey(KeyCode.LeftArrow) && Input.GetKey(KeyCode.RightArrow))
+            //    {
+            //        RigidBody.velocity = new Vector2(0, RigidBody.velocity.y);
+            //    }
+            //    else if (Input.GetKey(KeyCode.RightArrow))
+            //    {
+            //        transform.right = Vector2.right;
+            //        RigidBody.velocity = new Vector2(transform.right.x * 2, RigidBody.velocity.y);
+            //    }
+            //    else if (Input.GetKey(KeyCode.LeftArrow))
+            //    {
+            //        transform.right = Vector2.left;
+            //        RigidBody.velocity = new Vector2(transform.right.x * 2, RigidBody.velocity.y);
+
+            //    }
+            //    else
+            //    {
+            //        RigidBody.velocity = new Vector2(0, RigidBody.velocity.y);
+            //    }
+            //}
+        }
+        if (usingController)
+        {
+            float horizontalInput = Input.GetAxis("Horizontal");
+            //if (horizontalInput > 0)
+            //{
+            //    transform.right = Vector2.right;
+            //}
+            //else if (horizontalInput < 0)
+            //{
+            //    transform.right = Vector2.left;
+            //}
+            if (horizontalInput == 0)
             {
-                float horizontalInput = Input.GetAxis("Horizontal");
-                if (horizontalInput > 0)
-                {
-                    transform.right = Vector2.right;
-                }
-                else if (horizontalInput < 0)
-                {
-                    transform.right = Vector2.left;
-                }
+                RigidBody.velocity = new Vector2(0, RigidBody.velocity.y);
+            }
+            else if (horizontalInput > 0)
+            {
+                transform.right = Vector2.right;
+                RigidBody.velocity = new Vector2(transform.right.x * 2, RigidBody.velocity.y);
+            }
+            else if (horizontalInput < 0)
+            {
+                transform.right = Vector2.left;
+                RigidBody.velocity = new Vector2(transform.right.x * -2, RigidBody.velocity.y);
+
             }
             else
             {
-                if (Input.GetKeyDown(KeyCode.LeftArrow))
-                {
-                    transform.right = Vector2.left;
-                }
-                if (Input.GetKeyDown(KeyCode.RightArrow))
-                {
-                    transform.right = Vector2.right;
-
-                }
+                RigidBody.velocity = new Vector2(0, RigidBody.velocity.y);
             }
         }
+        else
+        {
+            //if (Input.GetKeyDown(KeyCode.LeftArrow))
+            //{
+            //    transform.right = Vector2.left;
+            //}
+            //if (Input.GetKeyDown(KeyCode.RightArrow))
+            //{
+            //    transform.right = Vector2.right;
+
+            //}
+            if (Input.GetKey(KeyCode.LeftArrow) && Input.GetKey(KeyCode.RightArrow))
+            {
+                RigidBody.velocity = new Vector2(0, RigidBody.velocity.y);
+            }
+            else if (Input.GetKey(KeyCode.RightArrow))
+            {
+                transform.right = Vector2.right;
+                RigidBody.velocity = new Vector2(transform.right.x * 2, RigidBody.velocity.y);
+            }
+            else if (Input.GetKey(KeyCode.LeftArrow))
+            {
+                transform.right = Vector2.left;
+                RigidBody.velocity = new Vector2(transform.right.x * 2, RigidBody.velocity.y);
+
+            }
+            else
+            {
+                RigidBody.velocity = new Vector2(0, RigidBody.velocity.y);
+            }
+        }
+
+
 
     }
 
     bool touchingPlatform() 
     {
-        CapsuleCollider2D capsuleCollider = GetComponent<CapsuleCollider2D>();
         //currently any object grounds the character, when powerups etc are added we can filter by layer 
         return capsuleCollider.IsTouchingLayers(); 
     }
