@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,6 +9,9 @@ public class Character : MonoBehaviour
     public bool usingController = false;
     public Rigidbody2D RigidBody;
     public CapsuleCollider2D capsuleCollider;
+    public float moveSpeed = 10f;
+    public double cameraMinX = -9.5;
+    public double cameraMaxX = 9.5;
 
 
     void Start()
@@ -24,7 +28,7 @@ public class Character : MonoBehaviour
     }
 
     void checkMovementInput()
-    {
+    { 
         //can only move if touching another object
         //essentially prevents flying-like movement
         if (touchingPlatform())
@@ -33,131 +37,42 @@ public class Character : MonoBehaviour
             {
                 Jump();
             }
-
-            //if (usingController)
-            //{
-            //    float horizontalInput = Input.GetAxis("Horizontal");
-            //    //if (horizontalInput > 0)
-            //    //{
-            //    //    transform.right = Vector2.right;
-            //    //}
-            //    //else if (horizontalInput < 0)
-            //    //{
-            //    //    transform.right = Vector2.left;
-            //    //}
-            //    if (horizontalInput == 0)
-            //    {
-            //        RigidBody.velocity = new Vector2(0, RigidBody.velocity.y);
-            //    }
-            //    else if (horizontalInput > 0)
-            //    {
-            //        transform.right = Vector2.right;
-            //        RigidBody.velocity = new Vector2(transform.right.x * 2, RigidBody.velocity.y);
-            //    }
-            //    else if (horizontalInput < 0)
-            //    {
-            //        transform.right = Vector2.left;
-            //        RigidBody.velocity = new Vector2(transform.right.x * -2, RigidBody.velocity.y);
-
-            //    }
-            //    else
-            //    {
-            //        RigidBody.velocity = new Vector2(0, RigidBody.velocity.y);
-            //    }
-            //}
-            //else
-            //{
-            //    //if (Input.GetKeyDown(KeyCode.LeftArrow))
-            //    //{
-            //    //    transform.right = Vector2.left;
-            //    //}
-            //    //if (Input.GetKeyDown(KeyCode.RightArrow))
-            //    //{
-            //    //    transform.right = Vector2.right;
-
-            //    //}
-            //    if (Input.GetKey(KeyCode.LeftArrow) && Input.GetKey(KeyCode.RightArrow))
-            //    {
-            //        RigidBody.velocity = new Vector2(0, RigidBody.velocity.y);
-            //    }
-            //    else if (Input.GetKey(KeyCode.RightArrow))
-            //    {
-            //        transform.right = Vector2.right;
-            //        RigidBody.velocity = new Vector2(transform.right.x * 2, RigidBody.velocity.y);
-            //    }
-            //    else if (Input.GetKey(KeyCode.LeftArrow))
-            //    {
-            //        transform.right = Vector2.left;
-            //        RigidBody.velocity = new Vector2(transform.right.x * 2, RigidBody.velocity.y);
-
-            //    }
-            //    else
-            //    {
-            //        RigidBody.velocity = new Vector2(0, RigidBody.velocity.y);
-            //    }
-            //}
         }
         if (usingController)
         {
             float horizontalInput = Input.GetAxis("Horizontal");
-            //if (horizontalInput > 0)
-            //{
-            //    transform.right = Vector2.right;
-            //}
-            //else if (horizontalInput < 0)
-            //{
-            //    transform.right = Vector2.left;
-            //}
-            if (horizontalInput == 0)
+            if (horizontalInput != 0)
             {
-                RigidBody.velocity = new Vector2(0, RigidBody.velocity.y);
-            }
-            else if (horizontalInput > 0)
-            {
-                transform.right = Vector2.right;
-                RigidBody.velocity = new Vector2(transform.right.x * 2, RigidBody.velocity.y);
-            }
-            else if (horizontalInput < 0)
-            {
-                transform.right = Vector2.left;
-                RigidBody.velocity = new Vector2(transform.right.x * -2, RigidBody.velocity.y);
+                double newPosX = transform.position.x + horizontalInput * moveSpeed * Time.deltaTime;
+                newPosX = Math.Clamp(newPosX, cameraMinX, cameraMaxX);
 
+                transform.position = new Vector3((float)newPosX, transform.position.y, transform.position.z);
             }
-            else
-            {
-                RigidBody.velocity = new Vector2(0, RigidBody.velocity.y);
-            }
+
+            RigidBody.velocity = new Vector2(0, RigidBody.velocity.y);
         }
         else
         {
-            //if (Input.GetKeyDown(KeyCode.LeftArrow))
-            //{
-            //    transform.right = Vector2.left;
-            //}
-            //if (Input.GetKeyDown(KeyCode.RightArrow))
-            //{
-            //    transform.right = Vector2.right;
+            float horizontalInput = 0;
 
-            //}
-            if (Input.GetKey(KeyCode.LeftArrow) && Input.GetKey(KeyCode.RightArrow))
+            if (Input.GetKey(KeyCode.RightArrow))
             {
-                RigidBody.velocity = new Vector2(0, RigidBody.velocity.y);
-            }
-            else if (Input.GetKey(KeyCode.RightArrow))
-            {
-                transform.right = Vector2.right;
-                RigidBody.velocity = new Vector2(transform.right.x * 2, RigidBody.velocity.y);
+                horizontalInput = 1;
             }
             else if (Input.GetKey(KeyCode.LeftArrow))
             {
-                transform.right = Vector2.left;
-                RigidBody.velocity = new Vector2(transform.right.x * 2, RigidBody.velocity.y);
+                horizontalInput = -1;
+            }
 
-            }
-            else
+            if (horizontalInput != 0)
             {
-                RigidBody.velocity = new Vector2(0, RigidBody.velocity.y);
+                double newPosX = transform.position.x + horizontalInput * moveSpeed * Time.deltaTime;
+                newPosX = Math.Clamp(newPosX, cameraMinX, cameraMaxX);
+
+                transform.position = new Vector3((float)newPosX, transform.position.y, transform.position.z);
             }
+
+            RigidBody.velocity = new Vector2(0, RigidBody.velocity.y);
         }
 
 
