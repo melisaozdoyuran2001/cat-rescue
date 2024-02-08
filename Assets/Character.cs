@@ -38,46 +38,32 @@ public class Character : MonoBehaviour
                 Jump();
             }
         }
-        if (usingController)
-        {
-            float horizontalInput = Input.GetAxis("Horizontal");
-            if (horizontalInput != 0)
+        
+        if (Input.GetKey(KeyCode.LeftArrow) && Input.GetKey(KeyCode.RightArrow))
             {
-                double newPosX = transform.position.x + horizontalInput * moveSpeed * Time.deltaTime;
-                newPosX = Math.Clamp(newPosX, cameraMinX, cameraMaxX);
-
-                transform.position = new Vector3((float)newPosX, transform.position.y, transform.position.z);
+                RigidBody.velocity = new Vector2(0, RigidBody.velocity.y);
             }
+        else if (Input.GetAxis("Horizontal") > 0)
+            {
+                transform.right = Vector2.right;
+                RigidBody.velocity = new Vector2(transform.right.x * 4, RigidBody.velocity.y);
+            }
+        else if (Input.GetAxis("Horizontal") < 0)
+            {
+                transform.right = Vector2.left;
+                RigidBody.velocity = new Vector2(transform.right.x * 4, RigidBody.velocity.y);
 
-            RigidBody.velocity = new Vector2(0, RigidBody.velocity.y);
-        }
+            }
         else
-        {
-            float horizontalInput = 0;
-
-            if (Input.GetKey(KeyCode.RightArrow))
             {
-                horizontalInput = 1;
+                RigidBody.velocity = new Vector2(0, RigidBody.velocity.y);
             }
-            else if (Input.GetKey(KeyCode.LeftArrow))
-            {
-                horizontalInput = -1;
-            }
-
-            if (horizontalInput != 0)
-            {
-                double newPosX = transform.position.x + horizontalInput * moveSpeed * Time.deltaTime;
-                newPosX = Math.Clamp(newPosX, cameraMinX, cameraMaxX);
-
-                transform.position = new Vector3((float)newPosX, transform.position.y, transform.position.z);
-            }
-
-            RigidBody.velocity = new Vector2(0, RigidBody.velocity.y);
+            
         }
 
 
 
-    }
+    
 
     bool touchingPlatform() 
     {
