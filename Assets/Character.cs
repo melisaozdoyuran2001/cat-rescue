@@ -8,36 +8,23 @@ public class Character : MonoBehaviour
     public float jumpHeight = 10f;
     public bool usingController = false;
     public Rigidbody2D RigidBody;
-    public CapsuleCollider2D capsuleCollider;
+    public BoxCollider2D boxCollider;
     public float moveSpeed = 10f;
     public double cameraMinX = -9.5;
     public double cameraMaxX = 9.5;
-    private HingeJoint2D swingJoint;
-    public GameObject hook;
-    GameObject curHook;
 
 
     void Start()
     {
         usingController = isControllerConnected();
         RigidBody = GetComponent<Rigidbody2D>();
-        capsuleCollider = GetComponent<CapsuleCollider2D>();
+        boxCollider = GetComponent<BoxCollider2D>();
     }
 
 
     void Update()
     {
         checkMovementInput();
-        
-        if(Input.GetMouseButtonDown(0))
-        {
-            Vector2 dest = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            curHook = (GameObject)Instantiate(hook, transform.position, Quaternion.identity);
-            // traveling
-            curHook.GetComponent<Hook>().dest = dest; // set the transform of the hook to the actual destination determined by the mouse
-
-        }
-        
     }
 
     void checkMovementInput()
@@ -52,7 +39,7 @@ public class Character : MonoBehaviour
             }
         }
         
-        if (Input.GetKey(KeyCode.LeftArrow) && Input.GetKey(KeyCode.RightArrow))
+        if (Input.GetAxis("Horizontal") == 0)
             {
                 RigidBody.velocity = new Vector2(0, RigidBody.velocity.y);
             }
@@ -68,21 +55,20 @@ public class Character : MonoBehaviour
 
             }
         else
-            {
-                RigidBody.velocity = new Vector2(0, RigidBody.velocity.y);
-            }
-            
+        {
+            GetComponent<Rigidbody>().velocity = new Vector2(0, GetComponent<Rigidbody>().velocity.y);
         }
 
-     
+    }
 
 
-    
+
+
 
     bool touchingPlatform() 
     {
         //currently any object grounds the character, when powerups etc are added we can filter by layer 
-        return capsuleCollider.IsTouchingLayers(); 
+        return boxCollider.IsTouchingLayers();
     }
 
     void Jump()
@@ -111,9 +97,5 @@ public class Character : MonoBehaviour
         }
         return false;
     }
-
-
-
- } 
- 
+}
 
