@@ -75,8 +75,6 @@ public class Leaf : MonoBehaviour
         if (collision.gameObject.name == "Character")
         {
             PlayerOn = true;
-            character.transform.SetParent(transform);
-            characterRigidbody.gravityScale = 0;
         }
     }
 
