@@ -45,14 +45,27 @@ public class Character : MonoBehaviour
             }
         else if (Input.GetAxis("Horizontal") > 0)
             {
-                transform.right = Vector2.right;
-                RigidBody.velocity = new Vector2(transform.right.x * 4, RigidBody.velocity.y);
+                if (RigidBody.position.x < 8.3)
+                {
+                    transform.right = Vector2.right;
+                    RigidBody.velocity = new Vector2(transform.right.x * 4, RigidBody.velocity.y);
+                }
+                else
+                {
+                    RigidBody.velocity = new Vector2(0, RigidBody.velocity.y);
+                }   
             }
         else if (Input.GetAxis("Horizontal") < 0)
             {
-                transform.right = Vector2.left;
-                RigidBody.velocity = new Vector2(transform.right.x * 4, RigidBody.velocity.y);
-
+                if (RigidBody.position.x > -8.3)
+                {
+                    transform.right = Vector2.left;
+                    RigidBody.velocity = new Vector2(transform.right.x * 4, RigidBody.velocity.y);
+                }   
+                else
+                {
+                    RigidBody.velocity = new Vector2(0, RigidBody.velocity.y);
+                }   
             }
         else
         {
