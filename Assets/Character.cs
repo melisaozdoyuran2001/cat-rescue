@@ -12,6 +12,9 @@ public class Character : MonoBehaviour
     public float moveSpeed = 10f;
     public double cameraMinX = -9.5;
     public double cameraMaxX = 9.5;
+    private HingeJoint2D swingJoint;
+    public GameObject hook;
+    GameObject curHook;
 
 
     void Start()
@@ -25,6 +28,16 @@ public class Character : MonoBehaviour
     void Update()
     {
         checkMovementInput();
+        
+        if(Input.GetMouseButtonDown(0))
+        {
+            Vector2 dest = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            curHook = (GameObject)Instantiate(hook, transform.position, Quaternion.identity);
+            // traveling
+            curHook.GetComponent<Hook>().dest = dest; // set the transform of the hook to the actual destination determined by the mouse
+
+        }
+        
     }
 
     void checkMovementInput()
@@ -61,6 +74,7 @@ public class Character : MonoBehaviour
             
         }
 
+     
 
 
     
@@ -97,5 +111,9 @@ public class Character : MonoBehaviour
         }
         return false;
     }
-}
+
+
+
+ } 
+ 
 
