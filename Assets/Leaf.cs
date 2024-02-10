@@ -10,12 +10,15 @@ public class Leaf : MonoBehaviour
     public float cooltime = 1.25f;
     public int stage = 0;
     public bool PlayerOn = false;
+    public GameObject character;
+    private Rigidbody2D characterRigidbody;
 
     // Start is called before the first frame update
     void Start()
     {
         capsuleCollider = GetComponent<CapsuleCollider2D>();
         RB = GetComponent<Rigidbody2D>();
+        characterRigidbody = character.GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
@@ -81,6 +84,8 @@ public class Leaf : MonoBehaviour
         {
             PlayerOn = false;
             cooltime = 1.25f;
+            character.transform.SetParent(null);
+            characterRigidbody.gravityScale = 1;
         }
     }
 
