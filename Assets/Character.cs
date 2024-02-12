@@ -32,14 +32,14 @@ public class Character : MonoBehaviour
     {
         checkMovementInput();
         
-        if(Input.GetMouseButtonDown(0))
-        {
-            Vector2 dest = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            curHook = (GameObject)Instantiate(hook, transform.position, Quaternion.identity);
+        //if(Input.GetMouseButtonDown(0))
+        //{
+        //    Vector2 dest = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        //    curHook = (GameObject)Instantiate(hook, transform.position, Quaternion.identity);
             // traveling
-            curHook.GetComponent<Hook>().dest = dest; // set the transform of the hook to the actual destination determined by the mouse
+        //    curHook.GetComponent<Hook>().dest = dest; // set the transform of the hook to the actual destination determined by the mouse
 
-        }
+        //}
         
     }
 
