@@ -166,3 +166,4 @@ MonoBehaviour:
   cooltime: 2
   stage: 0
   PlayerOn: 0
+  character: {fileID: 0}

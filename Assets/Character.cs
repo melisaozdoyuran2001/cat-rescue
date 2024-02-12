@@ -15,6 +15,8 @@ public class Character : MonoBehaviour
     private HingeJoint2D swingJoint;
     public GameObject hook;
     GameObject curHook;
+    private Animator animator;
+    
 
 
     void Start()
@@ -22,6 +24,7 @@ public class Character : MonoBehaviour
         usingController = isControllerConnected();
         RigidBody = GetComponent<Rigidbody2D>();
         capsuleCollider = GetComponent<CapsuleCollider2D>();
+        animator = GetComponent<Animator>();
     }
 
 
@@ -60,12 +63,12 @@ public class Character : MonoBehaviour
             {
                 transform.right = Vector2.right;
                 RigidBody.velocity = new Vector2(transform.right.x * 4, RigidBody.velocity.y);
+                //animator.SetBool("Grounded", true);
             }
         else if (Input.GetAxis("Horizontal") < 0)
             {
                 transform.right = Vector2.left;
                 RigidBody.velocity = new Vector2(transform.right.x * 4, RigidBody.velocity.y);
-
             }
         else
             {
@@ -89,6 +92,7 @@ public class Character : MonoBehaviour
     {
         Rigidbody2D rb = GetComponent<Rigidbody2D>();
         float jumpAngle = 80f;
+        //animator.SetBool("IsJumping", true);
         if(transform.right == Vector3.left)
         {
             jumpAngle = 100f;
