@@ -36,6 +36,7 @@ public class cat : MonoBehaviour
         character.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
         winText.text = "You Won!";
         restartButton.gameObject.SetActive(true);
+        character.GetComponent<Character>().endGame = true;
     }
 
     void RestartGame()
@@ -56,6 +57,7 @@ public class cat : MonoBehaviour
         }
         character.GetComponent<Rigidbody2D>().isKinematic = false;
         character.GetComponent<Rigidbody2D>().velocity = Vector2.one;
+        character.GetComponent<Character>().endGame = false;
     }
 }
 

@@ -16,6 +16,7 @@ public class Character : MonoBehaviour
     public GameObject hook;
     GameObject curHook;
     private Animator animator;
+    public bool endGame = false;
     
 
 
@@ -31,12 +32,14 @@ public class Character : MonoBehaviour
     void Update()
     {
         checkMovementInput();
-        
-        //if(Input.GetMouseButtonDown(0))
+
+        //added the check for endgame so that clicking on the restart button
+        //doesn't make a hook
+        //if(!endGame && Input.GetMouseButtonDown(0))
         //{
-        //    Vector2 dest = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+         //   Vector2 dest = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         //    curHook = (GameObject)Instantiate(hook, transform.position, Quaternion.identity);
-            // traveling
+             //traveling
         //    curHook.GetComponent<Hook>().dest = dest; // set the transform of the hook to the actual destination determined by the mouse
 
         //}
