@@ -17,7 +17,7 @@ public class Character : MonoBehaviour
     GameObject curHook;
     private Animator animator;
     public bool endGame = false;
-    
+    public float jump_buffer = .15f;
 
 
     void Start()
@@ -32,7 +32,7 @@ public class Character : MonoBehaviour
     void Update()
     {
         checkMovementInput();
-
+        jump_buffer -= Time.deltaTime;
         //added the check for endgame so that clicking on the restart button
         //doesn't make a hook
         //if(!endGame && Input.GetMouseButtonDown(0))
@@ -50,7 +50,7 @@ public class Character : MonoBehaviour
     { 
         //can only move if touching another object
         //essentially prevents flying-like movement
-        if (touchingPlatform())
+        if (touchingPlatform() || jump_buffer > 0)
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
@@ -119,8 +119,11 @@ public class Character : MonoBehaviour
         return false;
     }
 
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        jump_buffer = .15f;
+    }
 
-
- } 
+} 
  
 
