@@ -57,28 +57,40 @@ public class Character : MonoBehaviour
                 Jump();
             }
         }
-        
-        if (Input.GetKey(KeyCode.LeftArrow) && Input.GetKey(KeyCode.RightArrow))
-            {
-                RigidBody.velocity = new Vector2(0, RigidBody.velocity.y);
-            }
+
+        if (Input.GetAxis("Horizontal") == 0)
+        {
+            RigidBody.velocity = new Vector2(0, RigidBody.velocity.y);
+        }
         else if (Input.GetAxis("Horizontal") > 0)
+        {
+            if (RigidBody.position.x < 8.3)
             {
                 transform.right = Vector2.right;
                 RigidBody.velocity = new Vector2(transform.right.x * 4, RigidBody.velocity.y);
-                //animator.SetBool("Grounded", true);
             }
+            else
+            {
+                RigidBody.velocity = new Vector2(0, RigidBody.velocity.y);
+            }
+        }
         else if (Input.GetAxis("Horizontal") < 0)
+        {
+            if (RigidBody.position.x > -8.3)
             {
                 transform.right = Vector2.left;
                 RigidBody.velocity = new Vector2(transform.right.x * 4, RigidBody.velocity.y);
             }
-        else
+            else
             {
                 RigidBody.velocity = new Vector2(0, RigidBody.velocity.y);
             }
-            
         }
+        else
+        {
+            GetComponent<Rigidbody>().velocity = new Vector2(0, GetComponent<Rigidbody>().velocity.y);
+        }
+    }
 
      
 
