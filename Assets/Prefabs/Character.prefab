@@ -49,6 +49,13 @@ MonoBehaviour:
   jumpHeight: 10
   usingController: 0
   RigidBody: {fileID: 0}
+  capsuleCollider: {fileID: 0}
+  moveSpeed: 10
+  cameraMinX: -9.5
+  cameraMaxX: 9.5
+  hook: {fileID: 8577169136026720133, guid: 79df5dc879c034dbc875b5b08979d801, type: 3}
+  endGame: 0
+  jump_buffer: 0.15
 --- !u!50 &-8118978587198031744
 Rigidbody2D:
   serializedVersion: 4

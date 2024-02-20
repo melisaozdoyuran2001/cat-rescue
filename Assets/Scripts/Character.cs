@@ -18,6 +18,8 @@ public class Character : MonoBehaviour
     private Animator animator;
     public bool endGame = false;
     public float jump_buffer = .15f;
+    private bool isGrappling = false;
+    private Vector2 grapplePoint;
 
 
     void Start()
@@ -29,34 +31,111 @@ public class Character : MonoBehaviour
     }
 
 
-    void Update()
-    {
-        checkMovementInput();
-        jump_buffer -= Time.deltaTime;
-        //added the check for endgame so that clicking on the restart button
-        //doesn't make a hook
-        //if(!endGame && Input.GetMouseButtonDown(0))
-        //{
-         //   Vector2 dest = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        //    curHook = (GameObject)Instantiate(hook, transform.position, Quaternion.identity);
-             //traveling
-        //    curHook.GetComponent<Hook>().dest = dest; // set the transform of the hook to the actual destination determined by the mouse
+  void Update()
+{
+    checkMovementInput();
+    jump_buffer -= Time.deltaTime;
 
-        //}
+    // Check for grapple input
+    if (!endGame && Input.GetMouseButtonDown(0))
+    {   Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+Vector2 direction = (mousePosition - (Vector2)transform.position).normalized;
+// Offset the ray start position slightly in the direction of the ray to avoid hitting character's collider
+float colliderAvoidanceOffset = 1f; // Adjust this value as needed
+Vector2 rayStart = (Vector2)transform.position + direction * colliderAvoidanceOffset;
+Debug.DrawRay(rayStart, direction * 3000f, Color.red, 5f);
+RaycastHit2D hit = Physics2D.Raycast(rayStart, direction, 7f);
+
+
+        if (hit.collider != null && (hit.collider.gameObject.CompareTag("Branch") ||(hit.collider.gameObject.CompareTag("Leaf"))))
+        {   
+            Swing(hit.point);
+        }
         
     }
+    if (Input.GetKeyDown(KeyCode.Space))
+    {
+        Jump();
+        DetachHook(); // Call to detach the hook when jumping
+    }
+    if (isGrappling)
+    {
+        // Move towards the grapple point
+        float step = 20f * Time.deltaTime;
+        transform.position = Vector2.MoveTowards(transform.position, grapplePoint, step);
+
+        // Update the rope visual to follow the character
+        if (curHook != null)
+        {
+            curHook.GetComponent<Hook>().UpdateRopeVisual();
+        }
+
+        // Stop grappling if the character reaches the grapple point
+        if ((Vector2)transform.position == grapplePoint)
+        {
+            isGrappling = false;
+            DetachHook();
+        }
+    }
+
+}
+
+public void DetachHook()
+{
+    if (curHook != null)
+    {
+        // Perform any cleanup if necessary, like disabling the hinge joint or removing the rope visuals
+        // ...
+
+        curHook.GetComponent<Hook>().DestroyRope();; // Destroy the current hook
+        isGrappling = false;
+        curHook = null; // Nullify the reference to allow new hook instantiation
+
+    }
+}
+void Swing(Vector2 anchorPoint)
+{
+    //if (swingJoint == null)
+    //{
+     //   swingJoint = gameObject.AddComponent<HingeJoint2D>();
+      //  swingJoint.autoConfigureConnectedAnchor = false;
+      //  swingJoint.connectedAnchor = anchorPoint;
+       // swingJoint.enableCollision = true;
+   // }
+   // else
+    //{
+     //   swingJoint.connectedAnchor = anchorPoint;
+  
+    if (curHook == null)
+    {   Debug.Log("Instantiating hook.");
+        // Instantiate the hook prefab at the character's position
+        curHook = Instantiate(hook, transform.position, Quaternion.identity);
+        Hook hookScript = curHook.GetComponent<Hook>();
+
+      
+        hookScript.dest = anchorPoint;
+        hookScript.player = gameObject;
+       
+        // Optionally, you can also set the line renderer reference here
+        // hookScript.lineRenderer = ...;
+        grapplePoint = anchorPoint;
+    }
+}
+public void Grapple()
+{
+    // Start grappling only if the hook is attached
+    if (curHook != null)
+    {
+        isGrappling = true;
+    }
+}
+
 
     void checkMovementInput()
     { 
         //can only move if touching another object
         //essentially prevents flying-like movement
-        if (touchingPlatform() || jump_buffer > 0)
-        {
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                Jump();
-            }
-        }
+       
 
         if (Input.GetAxis("Horizontal") == 0)
         {
@@ -90,6 +169,10 @@ public class Character : MonoBehaviour
         {
             GetComponent<Rigidbody>().velocity = new Vector2(0, GetComponent<Rigidbody>().velocity.y);
         }
+        if (Input.GetKeyDown(KeyCode.G))
+    {
+        Grapple();
+    }
     }
 
      
@@ -104,7 +187,9 @@ public class Character : MonoBehaviour
     }
 
     void Jump()
-    {
+    {   
+         if (touchingPlatform() || jump_buffer > 0)
+        {
         Rigidbody2D rb = GetComponent<Rigidbody2D>();
         float jumpAngle = 80f;
         //animator.SetBool("IsJumping", true);
@@ -116,6 +201,17 @@ public class Character : MonoBehaviour
         float jumpRadians = jumpAngle * Mathf.Deg2Rad;
         Vector3 jumpDirection = new Vector2(Mathf.Cos(jumpRadians), Mathf.Sin(jumpRadians));
         rb.AddForce(jumpDirection.normalized * jumpHeight, ForceMode2D.Impulse);
+        if (swingJoint != null)
+    {
+        Destroy(swingJoint);
+        swingJoint = null;
+    }
+        }
+        if (isGrappling)
+    {
+        isGrappling = false;
+    }
+        
     }
 
     bool isControllerConnected()

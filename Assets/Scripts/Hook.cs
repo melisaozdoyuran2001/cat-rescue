@@ -5,7 +5,7 @@ using UnityEngine;
 public class Hook : MonoBehaviour
 {  public float velocity = 1f;
    public Vector2 dest;
-   public float distance_node = 2;
+   public float distance_node = 0.5f;
    public GameObject nodePrefab;
    public GameObject player;
    public GameObject finalNode;
@@ -28,28 +28,47 @@ public class Hook : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.position = Vector2.MoveTowards(transform.position,dest, velocity);
-        // check if the hook is traveling or not
-        if((Vector2)transform.position != dest ) // if the position of the hook is different than the destination, then it is traveling
-        { // instantiate nodes to control the rope. Set a specified distance
+        transform.position = Vector2.MoveTowards(transform.position, dest, velocity);
 
-        if(Vector2.Distance(player.transform.position,finalNode.transform.position) > distance_node && !t)
+    // If the hook has not reached the destination, continue creating nodes
+    if ((Vector2)transform.position != dest)
+    {
+        if (Vector2.Distance(player.transform.position, finalNode.transform.position) > distance_node && !t)
         {
             DoNode();
         }
-        else if (t == false)
-        {
-            t = true;
-            finalNode.GetComponent<HingeJoint2D>().connectedBody = player.GetComponent<Rigidbody2D>();
+    }
+    else if (!t)
+    {
+        // If the hook reached the destination and is not attached, attach it
+        t = true;
+        AttachHookToPlayer();
+    }
 
-        }
-        UpdateRopeVisual();
-
+    if(t)
+    {
+       UpdateRopeVisual(); 
+    }
     
+}
 
-        }
+void AttachHookToPlayer()
+{
+    finalNode.GetComponent<HingeJoint2D>().connectedBody = player.GetComponent<Rigidbody2D>();
+}
+        
+public void DestroyRope()
+{
+    // Destroy all nodes
+    foreach (GameObject node in nodes)
+    {
+        Destroy(node);
+    }
+    nodes.Clear(); // Clear the list after destroying the nodes
 
-        }
+    // Finally, destroy the hook itself
+    Destroy(gameObject);
+}
 
         
     
@@ -74,24 +93,43 @@ public class Hook : MonoBehaviour
 
 
     }
-        void UpdateRopeVisual()
+    public void UpdateRopeVisual()
+{
+    if (t) // Check if the hook is active
+    {   Debug.Log("Updating Rope Visual");
+        lineRenderer.positionCount = 2; // Only two points needed for a simple line
+
+        // Set the first point of the line at the ray start position
+        Vector2 ropeStartPoint = (Vector2)player.transform.position;
+        lineRenderer.SetPosition(0, ropeStartPoint);
+
+        // Set the second point of the line at the hook's current position
+        lineRenderer.SetPosition(1, transform.position);
+    }
+    else
     {
-        lineRenderer.positionCount = nodes.Count + 2; // +2 for the hook and player positions
-        lineRenderer.SetPosition(0, transform.position); // Set the hook's position as the first point
-
-        for (int i = 0; i < nodes.Count; i++)
-        {
-            lineRenderer.SetPosition(i + 1, nodes[i].transform.position); // Set each node's position
-        }
-
-        lineRenderer.SetPosition(nodes.Count + 1, player.transform.position); // Set the player's position as the last point
+        lineRenderer.positionCount = 0; // No points to render when the hook is inactive
     }
-    void ConfigureLineRenderer() {
-        // Basic LineRenderer setup
-        lineRenderer.startWidth = 0.05f;
-        lineRenderer.endWidth = 0.05f;
-        // Add more configuration as needed (materials, colors, etc.)
-    }
+}
+
+    
+   void ConfigureLineRenderer() {
+    // Basic LineRenderer setup
+    lineRenderer.startWidth = 0.1f;
+    lineRenderer.endWidth = 0.1f;
+
+    // Create a new Material with a shader for the LineRenderer that is visible on both Scene and Game view
+    Material lineMaterial = new Material(Shader.Find("Sprites/Default"));
+
+    // Set the color of the LineRenderer to white and fully opaque
+    lineMaterial.color = Color.white;
+    lineRenderer.material = lineMaterial;
+
+    // Optional: Set sorting layer and order for 2D game
+    // lineRenderer.sortingLayerName = "Foreground";
+    // lineRenderer.sortingOrder = 5;
+}
+
 
 }
 
