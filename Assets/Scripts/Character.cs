@@ -17,7 +17,7 @@ public class Character : MonoBehaviour
     GameObject curHook;
     private Animator animator;
     public bool endGame = false;
-    public float jump_buffer = .01f;
+    public float jump_buffer = 0f;
     private bool isGrappling = false;
     private Vector2 grapplePoint;
 
@@ -235,7 +235,7 @@ public void Grapple()
 
     private void OnCollisionExit2D(Collision2D collision)
     {
-        jump_buffer = .01f;
+        jump_buffer = 0f;
     }
 
 } 
