@@ -1,0 +1,303 @@
+fileFormatVersion: 2
+guid: 39d790816d02b47b59bc48be4dc726f6
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 12
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: DALL_E_2024-02-21_16.10.17_-_Create_a_series_of_full-body_illustrations_of_2D_cats_with_diverse_appearances__each_displaying_a_worried_expression._These_cats_should_cover_a_wide_r_copy_2-removebg-prev_0
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 524
+        width: 81
+        height: 131
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f7f0ac358bcb749efa9651d11063ed53
+      internalID: 503421793
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DALL_E_2024-02-21_16.10.17_-_Create_a_series_of_full-body_illustrations_of_2D_cats_with_diverse_appearances__each_displaying_a_worried_expression._These_cats_should_cover_a_wide_r_copy_2-removebg-prev_1
+      rect:
+        serializedVersion: 2
+        x: 91
+        y: 541
+        width: 269
+        height: 120
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 65361c9c88d354be7a610e1c209b3204
+      internalID: 795752615
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DALL_E_2024-02-21_16.10.17_-_Create_a_series_of_full-body_illustrations_of_2D_cats_with_diverse_appearances__each_displaying_a_worried_expression._These_cats_should_cover_a_wide_r_copy_2-removebg-prev_2
+      rect:
+        serializedVersion: 2
+        x: 10
+        y: 373
+        width: 355
+        height: 148
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8525298b7c5634e0cb8b56a3777c53fa
+      internalID: 711019444
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DALL_E_2024-02-21_16.10.17_-_Create_a_series_of_full-body_illustrations_of_2D_cats_with_diverse_appearances__each_displaying_a_worried_expression._These_cats_should_cover_a_wide_r_copy_2-removebg-prev_3
+      rect:
+        serializedVersion: 2
+        x: 11
+        y: 131
+        width: 355
+        height: 139
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c17381704ceb048cea54faaf59f3e056
+      internalID: 845688955
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DALL_E_2024-02-21_16.10.17_-_Create_a_series_of_full-body_illustrations_of_2D_cats_with_diverse_appearances__each_displaying_a_worried_expression._These_cats_should_cover_a_wide_r_copy_2-removebg-prev_4
+      rect:
+        serializedVersion: 2
+        x: 21
+        y: 263
+        width: 346
+        height: 105
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1675b86f7e29e47c1b1c0f2d7cc0861d
+      internalID: -1151320752
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DALL_E_2024-02-21_16.10.17_-_Create_a_series_of_full-body_illustrations_of_2D_cats_with_diverse_appearances__each_displaying_a_worried_expression._These_cats_should_cover_a_wide_r_copy_2-removebg-prev_5
+      rect:
+        serializedVersion: 2
+        x: 17
+        y: 7
+        width: 65
+        height: 98
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4eee668931a2f4ccb9a11c57725a9bfb
+      internalID: -927769369
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DALL_E_2024-02-21_16.10.17_-_Create_a_series_of_full-body_illustrations_of_2D_cats_with_diverse_appearances__each_displaying_a_worried_expression._These_cats_should_cover_a_wide_r_copy_2-removebg-prev_6
+      rect:
+        serializedVersion: 2
+        x: 84
+        y: 1
+        width: 198
+        height: 126
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 646643eefe5ab476d9c1ba392c7f0c23
+      internalID: 848409330
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DALL_E_2024-02-21_16.10.17_-_Create_a_series_of_full-body_illustrations_of_2D_cats_with_diverse_appearances__each_displaying_a_worried_expression._These_cats_should_cover_a_wide_r_copy_2-removebg-prev_7
+      rect:
+        serializedVersion: 2
+        x: 290
+        y: 2
+        width: 69
+        height: 111
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 67ab73f0375e64e7db0d66ecb5fef1dc
+      internalID: 1836349791
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      DALL_E_2024-02-21_16.10.17_-_Create_a_series_of_full-body_illustrations_of_2D_cats_with_diverse_appearances__each_displaying_a_worried_expression._These_cats_should_cover_a_wide_r_copy_2-removebg-prev_0: 503421793
+      DALL_E_2024-02-21_16.10.17_-_Create_a_series_of_full-body_illustrations_of_2D_cats_with_diverse_appearances__each_displaying_a_worried_expression._These_cats_should_cover_a_wide_r_copy_2-removebg-prev_1: 795752615
+      DALL_E_2024-02-21_16.10.17_-_Create_a_series_of_full-body_illustrations_of_2D_cats_with_diverse_appearances__each_displaying_a_worried_expression._These_cats_should_cover_a_wide_r_copy_2-removebg-prev_2: 711019444
+      DALL_E_2024-02-21_16.10.17_-_Create_a_series_of_full-body_illustrations_of_2D_cats_with_diverse_appearances__each_displaying_a_worried_expression._These_cats_should_cover_a_wide_r_copy_2-removebg-prev_3: 845688955
+      DALL_E_2024-02-21_16.10.17_-_Create_a_series_of_full-body_illustrations_of_2D_cats_with_diverse_appearances__each_displaying_a_worried_expression._These_cats_should_cover_a_wide_r_copy_2-removebg-prev_4: -1151320752
+      DALL_E_2024-02-21_16.10.17_-_Create_a_series_of_full-body_illustrations_of_2D_cats_with_diverse_appearances__each_displaying_a_worried_expression._These_cats_should_cover_a_wide_r_copy_2-removebg-prev_5: -927769369
+      DALL_E_2024-02-21_16.10.17_-_Create_a_series_of_full-body_illustrations_of_2D_cats_with_diverse_appearances__each_displaying_a_worried_expression._These_cats_should_cover_a_wide_r_copy_2-removebg-prev_6: 848409330
+      DALL_E_2024-02-21_16.10.17_-_Create_a_series_of_full-body_illustrations_of_2D_cats_with_diverse_appearances__each_displaying_a_worried_expression._These_cats_should_cover_a_wide_r_copy_2-removebg-prev_7: 1836349791
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
