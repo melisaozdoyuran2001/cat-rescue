@@ -30,13 +30,15 @@ public class cat : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-       //isCatTouched = true;
-       character.GetComponent<Rigidbody2D>().gravityScale = 0;
-        character.transform.position = new Vector2(-1.06f, 46.32f);
-        character.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
-        winText.text = "You Won!";
-        restartButton.gameObject.SetActive(true);
-        character.GetComponent<Character>().endGame = true;
+        //isCatTouched = true;
+        if (other.gameObject == character) {
+            character.GetComponent<Rigidbody2D>().gravityScale = 0;
+            character.transform.position = new Vector2(-1.06f, 46.32f);
+            character.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+            winText.text = "You Won!";
+            restartButton.gameObject.SetActive(true);
+            character.GetComponent<Character>().endGame = true;
+        }
     }
 
     void RestartGame()
