@@ -11,6 +11,7 @@ public class cat : MonoBehaviour
     private TextMeshProUGUI winText;
     private Button restartButton;
     private GameObject character;
+    public Timer timer; 
 
     void Start()
     {
@@ -60,6 +61,7 @@ public class cat : MonoBehaviour
         character.GetComponent<Rigidbody2D>().isKinematic = false;
         character.GetComponent<Rigidbody2D>().velocity = Vector2.one;
         character.GetComponent<Character>().endGame = false;
+        timer.ResetTimer();
     }
 }
 

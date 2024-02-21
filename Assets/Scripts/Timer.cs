@@ -5,8 +5,9 @@ using UnityEngine.UI;
 using TMPro; 
 public class Timer : MonoBehaviour
 {
-    private float startTime;
+    public  float startTime;
     public TextMeshProUGUI timerText; 
+    float timeElapsed; 
 
     void Start()
     {
@@ -16,12 +17,16 @@ public class Timer : MonoBehaviour
     void Update()
     {
       
-        float timeElapsed = Time.time - startTime;
+        timeElapsed = Time.time - startTime;
 
         string minutes = ((int)timeElapsed / 60).ToString();
         string seconds = (timeElapsed % 60).ToString("f2"); 
        
         if(timerText != null)
             timerText.text = "Time: " + minutes + ":" + seconds;
+    }
+
+    public void ResetTimer(){
+        startTime = timeElapsed;
     }
 }
