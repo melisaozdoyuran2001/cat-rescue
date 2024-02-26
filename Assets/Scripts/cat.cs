@@ -42,6 +42,7 @@ public class cat : MonoBehaviour
                 noWinYet = false;
                 character.GetComponent<Rigidbody2D>().gravityScale = 0;
                 character.transform.position = new Vector2(winCharPosX, winCharPosY);
+                character.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezePositionY;
                 character.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
                 winText.text = "You Won!";
                 restartButton.gameObject.SetActive(true);

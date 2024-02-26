@@ -46,7 +46,7 @@ public class Character : MonoBehaviour
 
 
         checkMovementInput();
-    jump_buffer -= Time.deltaTime;
+        jump_buffer -= Time.deltaTime;
         isJumping = false;
 
   
@@ -177,8 +177,8 @@ public void Grapple()
             // Stop grappling if the character reaches the grapple point
             if ((Vector2)transform.position == grapplePoint)
             {
-                isGrappling = false;
-                DetachHook();
+                //isGrappling = false;
+                //DetachHook();
             }
         }
             if (Input.GetKeyDown(KeyCode.G))
