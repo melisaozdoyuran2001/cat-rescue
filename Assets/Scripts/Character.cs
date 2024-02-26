@@ -20,6 +20,7 @@ public class Character : MonoBehaviour
     public float jump_buffer = 0f;
     private bool isGrappling = false;
     private Vector2 grapplePoint;
+    private bool isJumping = false;
 
 
     void Start()
@@ -46,6 +47,7 @@ public class Character : MonoBehaviour
 
         checkMovementInput();
     jump_buffer -= Time.deltaTime;
+        isJumping = false;
 
   
     
@@ -153,8 +155,12 @@ public void Grapple()
         }
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            Jump();
-            DetachHook(); // Call to detach the hook when jumping
+            if (!isJumping)
+            {
+                isJumping = true;
+                Jump();
+                DetachHook(); // Call to detach the hook when jumping
+            }
         }
         if (isGrappling)
         {
@@ -216,8 +222,7 @@ public void Grapple()
         if (isGrappling)
     {
         isGrappling = false;
-    }
-        
+    }        
     }
 
     bool isControllerConnected()
@@ -236,6 +241,7 @@ public void Grapple()
     private void OnCollisionExit2D(Collision2D collision)
     {
         jump_buffer = 0f;
+        isJumping = false;
     }
 
 } 

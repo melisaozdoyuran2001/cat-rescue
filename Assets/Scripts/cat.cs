@@ -15,6 +15,7 @@ public class cat : MonoBehaviour
     public Timer timer;
     public float winCharPosX = -1.06f;
     public float winCharPosY = 46.32f;
+    private bool noWinYet = true;
 
     void Start()
     {
@@ -23,6 +24,7 @@ public class cat : MonoBehaviour
         restartButton = GameObject.Find("RestartButton").GetComponent<Button>();
         restartButton.gameObject.SetActive(false);
         restartButton.onClick.AddListener(NextScene);
+        noWinYet = true;
 
     }
 
@@ -33,14 +35,18 @@ public class cat : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        //isCatTouched = true;
-        if (other.gameObject == character) {
-            character.GetComponent<Rigidbody2D>().gravityScale = 0;
-            character.transform.position = new Vector2(winCharPosX, winCharPosY);
-            character.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
-            winText.text = "You Won!";
-            restartButton.gameObject.SetActive(true);
-            character.GetComponent<Character>().endGame = true;
+        if (noWinYet)
+        {
+            if (other.gameObject == character)
+            {
+                noWinYet = false;
+                character.GetComponent<Rigidbody2D>().gravityScale = 0;
+                character.transform.position = new Vector2(winCharPosX, winCharPosY);
+                character.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+                winText.text = "You Won!";
+                restartButton.gameObject.SetActive(true);
+                character.GetComponent<Character>().endGame = true;
+            }
         }
     }
 
