@@ -20,6 +20,19 @@ public class SceneManager : MonoBehaviour
     {
         UnityEngine.SceneManagement.SceneManager.LoadScene(3);
     }
+
+    public void Level2ToLevel3()
+    {
+        UnityEngine.SceneManagement.SceneManager.LoadScene(5);
+        Debug.Log("next level"); 
+    }
+
+    public void OpenBonusLevel()
+    {
+        UnityEngine.SceneManagement.SceneManager.LoadScene(4);
+    }
+
+
     public void ReturnToStart()
     {
         UnityEngine.SceneManagement.SceneManager.LoadScene(2);

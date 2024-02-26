@@ -377,7 +377,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -87.14}
+  m_AnchoredPosition: {x: 0, y: -31}
   m_SizeDelta: {x: 414.5, y: 414}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1489109874
@@ -400,10 +400,37 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "climb up the tree by moving left or right and jumping from branch to branch
-    with the arrow keys and spacebar. You can also cling to the sides of the nodes
-    for better positioning. \n\nYour mission: rescue the cats perched high in the
-    tree by mastering your jumps and swings. Good luck!\n\n\n\n\n\n\n"
+  m_text: 'Mission: Rescue cats stranded high in the tree. Use agility and precision
+    to navigate through branches.
+
+
+    Controls:
+
+    Move: A/D to go left/right.
+
+    Jump:
+    W to leap upwards or across.
+
+    Grapple: Click on nodes to swing or pull yourself
+    towards them. Release to let go.
+
+
+    Tips:
+
+    Jump and grapple to move efficiently.
+
+    Timing
+    is key for grappling; aim for distant nodes to swing further.
+
+    Explore different
+    paths; some may be easier to navigate.
+
+    Good luck on your rescue mission!
+
+
+
+
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dc36b3fdc14f47ebb36fd484a67e268a, type: 2}
   m_sharedMaterial: {fileID: 2140032, guid: dc36b3fdc14f47ebb36fd484a67e268a, type: 2}
@@ -430,14 +457,14 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 29.8
-  m_fontSizeBase: 29.8
+  m_fontSize: 20.78
+  m_fontSizeBase: 20.78
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 2
+  m_HorizontalAlignment: 1
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
