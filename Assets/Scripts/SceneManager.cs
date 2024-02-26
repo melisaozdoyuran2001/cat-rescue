@@ -16,4 +16,12 @@ public class SceneManager : MonoBehaviour
     public void OpenStartScene() {
         UnityEngine.SceneManagement.SceneManager.LoadScene(2);
     }
+    public void Level1ToLevel2()
+    {
+        UnityEngine.SceneManagement.SceneManager.LoadScene(3);
+    }
+    public void ReturnToStart()
+    {
+        UnityEngine.SceneManagement.SceneManager.LoadScene(2);
+    }
 }

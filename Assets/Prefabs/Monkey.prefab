@@ -148,7 +148,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 4
+  m_Constraints: 7
 --- !u!114 &-6780898694949022303
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -161,3 +161,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7315857a14544633abf3c5af43dc44e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  character: {fileID: 0}
+  bananaPrefab: {fileID: 3856722260855862661, guid: 11b8672f145064f8aa202bd3b5185fac, type: 3}
+  minY: 20
+  maxY: 25
+  updateInterval: 20

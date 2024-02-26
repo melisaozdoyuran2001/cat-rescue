@@ -8516,6 +8516,10 @@ PrefabInstance:
       propertyPath: timer
       value: 
       objectReference: {fileID: 1902666647}
+    - target: {fileID: 7826897671830986801, guid: d8c53c425bef44995bfead2d650c2b76, type: 3}
+      propertyPath: character
+      value: 
+      objectReference: {fileID: 1458581849}
     m_RemovedComponents:
     - {fileID: 0}
     m_RemovedGameObjects: []
@@ -9098,7 +9102,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Restart Game!
+  m_text: Next Level!
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dc36b3fdc14f47ebb36fd484a67e268a, type: 2}
   m_sharedMaterial: {fileID: 2140032, guid: dc36b3fdc14f47ebb36fd484a67e268a, type: 2}

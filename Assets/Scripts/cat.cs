@@ -10,8 +10,11 @@ public class cat : MonoBehaviour
     //private bool isCatTouched = false;
     private TextMeshProUGUI winText;
     private Button restartButton;
-    private GameObject character;
-    public Timer timer; 
+    public GameObject character;
+    public GameObject nextScene;
+    public Timer timer;
+    public float winCharPosX = -1.06f;
+    public float winCharPosY = 46.32f;
 
     void Start()
     {
@@ -19,8 +22,7 @@ public class cat : MonoBehaviour
         winText.text = "";
         restartButton = GameObject.Find("RestartButton").GetComponent<Button>();
         restartButton.gameObject.SetActive(false);
-        character = GameObject.Find("Character");
-        restartButton.onClick.AddListener(RestartGame);
+        restartButton.onClick.AddListener(NextScene);
 
     }
 
@@ -34,7 +36,7 @@ public class cat : MonoBehaviour
         //isCatTouched = true;
         if (other.gameObject == character) {
             character.GetComponent<Rigidbody2D>().gravityScale = 0;
-            character.transform.position = new Vector2(-1.06f, 46.32f);
+            character.transform.position = new Vector2(winCharPosX, winCharPosY);
             character.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
             winText.text = "You Won!";
             restartButton.gameObject.SetActive(true);
@@ -42,26 +44,10 @@ public class cat : MonoBehaviour
         }
     }
 
-    void RestartGame()
+    void NextScene()
     {
        
 
-        //character.GetComponent<>
-
-        winText.text = "";
-        restartButton.gameObject.SetActive(false);
-        //isCatTouched = false;
-        character.GetComponent<Rigidbody2D>().gravityScale = 1;
-        character.GetComponent<Rigidbody2D>().isKinematic = true;
-        while (character.transform.position.y > -3.184443f)
-        {
-            character.transform.Translate(Vector3.down * Time.deltaTime); // Fall to ground
-            
-        }
-        character.GetComponent<Rigidbody2D>().isKinematic = false;
-        character.GetComponent<Rigidbody2D>().velocity = Vector2.one;
-        character.GetComponent<Character>().endGame = false;
-        timer.ResetTimer();
     }
 }
 

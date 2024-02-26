@@ -29,7 +29,9 @@ public class Monkey : MonoBehaviour
                 Vector2 direction = (characterPosition.x > transform.position.x) ? Vector2.right : Vector2.left;
 
                 bananaScript.direction = direction;
-                bananaScript.velocity = new Vector2(direction.x * 20, 0); 
+                bananaScript.velocity = new Vector2(direction.x * 20, 0);
+                bananaScript.xPos = transform.position.x;
+                bananaScript.yPos = transform.position.y + 1;
             }
         }
 
