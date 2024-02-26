@@ -3597,6 +3597,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1277236121}
     - target: {fileID: 7826897671830986801, guid: d8c53c425bef44995bfead2d650c2b76, type: 3}
+      propertyPath: bonusButton
+      value: 
+      objectReference: {fileID: 547503733}
+    - target: {fileID: 7826897671830986801, guid: d8c53c425bef44995bfead2d650c2b76, type: 3}
       propertyPath: winCharPosX
       value: -1.28
       objectReference: {fileID: 0}

@@ -10,6 +10,7 @@ public class cat : MonoBehaviour
     //private bool isCatTouched = false;
     private TextMeshProUGUI winText;
     private Button restartButton;
+    public Button bonusButton;
     public GameObject character;
     public GameObject nextScene;
     public Timer timer;
@@ -23,6 +24,11 @@ public class cat : MonoBehaviour
         winText.text = "";
         restartButton = GameObject.Find("RestartButton").GetComponent<Button>();
         restartButton.gameObject.SetActive(false);
+        if (bonusButton != null)
+        {
+            print("button");
+            bonusButton.gameObject.SetActive(false);
+        }
         restartButton.onClick.AddListener(NextScene);
         noWinYet = true;
 
@@ -47,6 +53,10 @@ public class cat : MonoBehaviour
                 winText.text = "You Won!";
                 restartButton.gameObject.SetActive(true);
                 character.GetComponent<Character>().endGame = true;
+                if(bonusButton != null)
+                {
+                    bonusButton.gameObject.SetActive(true);
+                }
             }
         }
     }
