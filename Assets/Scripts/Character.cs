@@ -212,7 +212,8 @@ public void Grapple()
         }
         float jumpRadians = jumpAngle * Mathf.Deg2Rad;
         Vector3 jumpDirection = new Vector2(Mathf.Cos(jumpRadians), Mathf.Sin(jumpRadians));
-        rb.AddForce(jumpDirection.normalized * jumpHeight, ForceMode2D.Impulse);
+        //rb.AddForce(jumpDirection.normalized * jumpHeight, ForceMode2D.Impulse);
+        rb.velocity = new Vector3(rb.velocity.x, 10f);
         if (swingJoint != null)
     {
         Destroy(swingJoint);
@@ -240,7 +241,7 @@ public void Grapple()
 
     private void OnCollisionExit2D(Collision2D collision)
     {
-        jump_buffer = 0f;
+        jump_buffer = .15f;
         isJumping = false;
     }
 
