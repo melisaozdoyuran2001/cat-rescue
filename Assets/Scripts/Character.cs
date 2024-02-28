@@ -74,7 +74,6 @@ RaycastHit2D hit = Physics2D.Raycast(rayStart, direction, 7f);
         if ((Vector2)transform.position == grapplePoint)
         {
             isGrappling = false;
-            DetachHook();
         }
     }
 
