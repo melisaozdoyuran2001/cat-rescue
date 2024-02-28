@@ -15,6 +15,9 @@ public class bird : MonoBehaviour
     private float lastY;
     private Rigidbody2D rb;
     private float updateCounter;
+    public bool isTriggered = false; 
+
+    // Start and Update methods...
 
     void Start()
     {
@@ -23,8 +26,17 @@ public class bird : MonoBehaviour
         lastY = transform.position.y;
     }
 
+     void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Character")) 
+        {
+            isTriggered = true; 
+        }
+    }
+
     void Update()
     {
+        if (!isTriggered) return;
         updateCounter++;
         if (lastX == transform.position.x && updateCounter > 10)
         {

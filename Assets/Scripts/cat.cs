@@ -10,7 +10,13 @@ public class cat : MonoBehaviour
     //private bool isCatTouched = false;
     private TextMeshProUGUI winText;
     private Button restartButton;
-    private GameObject character;
+    public Button bonusButton;
+    public GameObject character;
+    public GameObject nextScene;
+    public Timer timer;
+    public float winCharPosX = -1.06f;
+    public float winCharPosY = 46.32f;
+    private bool noWinYet = true;
 
     void Start()
     {
@@ -18,8 +24,13 @@ public class cat : MonoBehaviour
         winText.text = "";
         restartButton = GameObject.Find("RestartButton").GetComponent<Button>();
         restartButton.gameObject.SetActive(false);
-        character = GameObject.Find("Character");
-        restartButton.onClick.AddListener(RestartGame);
+        if (bonusButton != null)
+        {
+            print("button");
+            bonusButton.gameObject.SetActive(false);
+        }
+        restartButton.onClick.AddListener(NextScene);
+        noWinYet = true;
 
     }
 
@@ -30,34 +41,30 @@ public class cat : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-       //isCatTouched = true;
-       character.GetComponent<Rigidbody2D>().gravityScale = 0;
-        character.transform.position = new Vector2(-1.06f, 46.32f);
-        character.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
-        winText.text = "You Won!";
-        restartButton.gameObject.SetActive(true);
-        character.GetComponent<Character>().endGame = true;
+        if (noWinYet)
+        {
+            if (other.gameObject == character)
+            {
+                noWinYet = false;
+                character.GetComponent<Rigidbody2D>().gravityScale = 0;
+                character.transform.position = new Vector2(winCharPosX, winCharPosY);
+                character.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezePositionY | RigidbodyConstraints2D.FreezeRotation;
+                character.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+                winText.text = "You Won!";
+                restartButton.gameObject.SetActive(true);
+                character.GetComponent<Character>().endGame = true;
+                if(bonusButton != null)
+                {
+                    bonusButton.gameObject.SetActive(true);
+                }
+            }
+        }
     }
 
-    void RestartGame()
+    void NextScene()
     {
        
 
-        //character.GetComponent<>
-
-        winText.text = "";
-        restartButton.gameObject.SetActive(false);
-        //isCatTouched = false;
-        character.GetComponent<Rigidbody2D>().gravityScale = 1;
-        character.GetComponent<Rigidbody2D>().isKinematic = true;
-        while (character.transform.position.y > -3.184443f)
-        {
-            character.transform.Translate(Vector3.down * Time.deltaTime); // Fall to ground
-            
-        }
-        character.GetComponent<Rigidbody2D>().isKinematic = false;
-        character.GetComponent<Rigidbody2D>().velocity = Vector2.one;
-        character.GetComponent<Character>().endGame = false;
     }
 }
 

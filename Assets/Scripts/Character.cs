@@ -10,16 +10,17 @@ public class Character : MonoBehaviour
     public Rigidbody2D RigidBody;
     public CapsuleCollider2D capsuleCollider;
     public float moveSpeed = 10f;
-    public double cameraMinX = -9.5;
-    public double cameraMaxX = 9.5;
+    public double cameraMinX = -9.59;
+    public double cameraMaxX = 9.59;
     private HingeJoint2D swingJoint;
     public GameObject hook;
     GameObject curHook;
     private Animator animator;
     public bool endGame = false;
-    public float jump_buffer = .15f;
+    public float jump_buffer = 0f;
     private bool isGrappling = false;
     private Vector2 grapplePoint;
+    private bool isJumping = false;
 
 
     void Start()
@@ -33,41 +34,14 @@ public class Character : MonoBehaviour
 
   void Update()
 {
-    checkMovementInput();
-    jump_buffer -= Time.deltaTime;
-
-    // Check for grapple input
-    if (!endGame && Input.GetMouseButtonDown(0))
-    {   Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-Vector2 direction = (mousePosition - (Vector2)transform.position).normalized;
-// Offset the ray start position slightly in the direction of the ray to avoid hitting character's collider
-float colliderAvoidanceOffset = 1f; // Adjust this value as needed
-Vector2 rayStart = (Vector2)transform.position + direction * colliderAvoidanceOffset;
-Debug.DrawRay(rayStart, direction * 3000f, Color.red, 5f);
-RaycastHit2D hit = Physics2D.Raycast(rayStart, direction, 7f);
-
-
-        if (hit.collider != null && (hit.collider.gameObject.CompareTag("Branch") ||(hit.collider.gameObject.CompareTag("Leaf"))))
-        {   
-            Swing(hit.point);
-        }
-        
-    }
-    if (Input.GetKeyDown(KeyCode.Space))
-    {
-        Jump();
-        DetachHook(); // Call to detach the hook when jumping
-    }
-    if (isGrappling)
-    {
-        // Move towards the grapple point
-        float step = 20f * Time.deltaTime;
-        transform.position = Vector2.MoveTowards(transform.position, grapplePoint, step);
-
-        // Update the rope visual to follow the character
-        if (curHook != null)
+    if(RigidBody.position.x > cameraMaxX)
         {
-            curHook.GetComponent<Hook>().UpdateRopeVisual();
+            transform.position = new Vector2(RigidBody.position.x - 0.5f, RigidBody.position.y);
+
+        }
+    if(RigidBody.position.x < cameraMinX)
+        {
+            transform.position = new Vector2(RigidBody.position.x + 0.5f, RigidBody.position.y);
         }
 
         // Stop grappling if the character reaches the grapple point
@@ -76,6 +50,13 @@ RaycastHit2D hit = Physics2D.Raycast(rayStart, direction, 7f);
             isGrappling = false;
         }
     }
+
+        checkMovementInput();
+        jump_buffer -= Time.deltaTime;
+        isJumping = false;
+
+  
+    
 
 }
 
@@ -142,33 +123,71 @@ public void Grapple()
         }
         else if (Input.GetAxis("Horizontal") > 0)
         {
-            if (RigidBody.position.x < 8.3)
+            if (RigidBody.position.x < cameraMaxX)
             {
                 transform.right = Vector2.right;
                 RigidBody.velocity = new Vector2(transform.right.x * 4, RigidBody.velocity.y);
             }
-            else
-            {
-                RigidBody.velocity = new Vector2(0, RigidBody.velocity.y);
-            }
         }
         else if (Input.GetAxis("Horizontal") < 0)
         {
-            if (RigidBody.position.x > -8.3)
+            if (RigidBody.position.x > cameraMinX)
             {
                 transform.right = Vector2.left;
                 RigidBody.velocity = new Vector2(transform.right.x * 4, RigidBody.velocity.y);
             }
-            else
-            {
-                RigidBody.velocity = new Vector2(0, RigidBody.velocity.y);
-            }
         }
         else
         {
-            GetComponent<Rigidbody>().velocity = new Vector2(0, GetComponent<Rigidbody>().velocity.y);
+            //GetComponent<Rigidbody>().velocity = new Vector2(0, GetComponent<Rigidbody>().velocity.y);
         }
-        if (Input.GetKeyDown(KeyCode.G))
+        // Check for grapple input
+        if (!endGame && Input.GetMouseButtonDown(0))
+        {
+            Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Vector2 direction = (mousePosition - (Vector2)transform.position).normalized;
+            // Offset the ray start position slightly in the direction of the ray to avoid hitting character's collider
+            float colliderAvoidanceOffset = 1f; // Adjust this value as needed
+            Vector2 rayStart = (Vector2)transform.position + direction * colliderAvoidanceOffset;
+            Debug.DrawRay(rayStart, direction * 3000f, Color.red, 5f);
+            RaycastHit2D hit = Physics2D.Raycast(rayStart, direction, 7f);
+
+
+            if (hit.collider != null && (hit.collider.gameObject.CompareTag("Branch") || (hit.collider.gameObject.CompareTag("Leaf"))))
+            {
+                Swing(hit.point);
+            }
+
+        }
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            if (!isJumping)
+            {
+                isJumping = true;
+                Jump();
+                DetachHook(); // Call to detach the hook when jumping
+            }
+        }
+        if (isGrappling)
+        {
+            // Move towards the grapple point
+            float step = 20f * Time.deltaTime;
+            transform.position = Vector2.MoveTowards(transform.position, grapplePoint, step);
+
+            // Update the rope visual to follow the character
+            if (curHook != null)
+            {
+                curHook.GetComponent<Hook>().UpdateRopeVisual();
+            }
+
+            // Stop grappling if the character reaches the grapple point
+            if ((Vector2)transform.position == grapplePoint)
+            {
+                //isGrappling = false;
+                //DetachHook();
+            }
+        }
+            if (Input.GetKeyDown(KeyCode.G))
     {
         Grapple();
     }
@@ -199,7 +218,8 @@ public void Grapple()
         }
         float jumpRadians = jumpAngle * Mathf.Deg2Rad;
         Vector3 jumpDirection = new Vector2(Mathf.Cos(jumpRadians), Mathf.Sin(jumpRadians));
-        rb.AddForce(jumpDirection.normalized * jumpHeight, ForceMode2D.Impulse);
+        //rb.AddForce(jumpDirection.normalized * jumpHeight, ForceMode2D.Impulse);
+        rb.velocity = new Vector3(rb.velocity.x, 10f);
         if (swingJoint != null)
     {
         Destroy(swingJoint);
@@ -209,8 +229,7 @@ public void Grapple()
         if (isGrappling)
     {
         isGrappling = false;
-    }
-        
+    }        
     }
 
     bool isControllerConnected()
@@ -229,6 +248,7 @@ public void Grapple()
     private void OnCollisionExit2D(Collision2D collision)
     {
         jump_buffer = .15f;
+        isJumping = false;
     }
 
 } 
