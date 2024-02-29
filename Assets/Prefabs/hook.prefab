@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 3305843590763790279}
   m_Layer: 0
   m_Name: hook
-  m_TagString: Untagged
+  m_TagString: Hook
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -77,7 +77,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -7
   m_Sprite: {fileID: -2413806693520163455, guid: e4389ed1fe7b649c5b3274e5171b6a84, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -195,6 +195,7 @@ MonoBehaviour:
   player: {fileID: 0}
   finalNode: {fileID: 0}
   lineRenderer: {fileID: 3305843590763790279}
+  nodes: []
 --- !u!120 &3305843590763790279
 LineRenderer:
   serializedVersion: 2

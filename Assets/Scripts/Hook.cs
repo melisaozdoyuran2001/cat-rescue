@@ -11,7 +11,7 @@ public class Hook : MonoBehaviour
    public GameObject finalNode;
    bool t = false;
    public LineRenderer lineRenderer; // Reference to the LineRenderer
-   private List<GameObject> nodes = new List<GameObject>(); // To keep track of all nodes
+   public List<GameObject> nodes = new List<GameObject>(); // To keep track of all nodes
 
     void Start()
     {

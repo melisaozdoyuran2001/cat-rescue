@@ -21,6 +21,10 @@ public class Character : MonoBehaviour
     private bool isGrappling = false;
     private Vector2 grapplePoint;
     private bool isJumping = false;
+    private bool isBoostActive = false;
+    private bool isBoost2= false;
+    
+
 
 
     void Start()
@@ -49,30 +53,71 @@ public class Character : MonoBehaviour
         {
             isGrappling = false;
         }
-    }
-
         checkMovementInput();
         jump_buffer -= Time.deltaTime;
         isJumping = false;
+    }
+
+ 
+public void DetachHook()
+{   
+    if (curHook != null)
+    {   
+     float tolerance = 2.7f; // Adjust the tolerance value as needed
+  if (Vector2.Distance(transform.position, grapplePoint) <= tolerance)
+{
+    isBoost2 = false;
+}
+else
+{
+    isBoost2 = true;
+}
+        
+  
+        // Get the current position of the hook for direction calculation
+        Vector2 hookPosition = curHook.transform.position;
+        // Calculate the unit direction from the character to the hook
+        Vector2 toHookDirection = (hookPosition - (Vector2)transform.position).normalized;
+
+        // Reference to the Hook script to access any required data before destruction
+        Hook hookScript = curHook.GetComponent<Hook>();
+
+        // Cleanup: Destroy the hook and remove visuals
+        hookScript.DestroyRope();
+        curHook = null;
+
+        // Destroy the hinge joint to fully detach the character from the grapple
+        if (swingJoint != null)
+        {
+            Destroy(swingJoint);
+            swingJoint = null;
+        }
+
+       if (isGrappling)
+{   
+    isGrappling = false;
+    Rigidbody2D rb = GetComponent<Rigidbody2D>();
+    // Determine the boost magnitude
+    float boostMagnitude = 7.45f; // Adjust based on gameplay needs
+    // Apply a boost in the direction of the hook
+    rb.AddForce(toHookDirection * boostMagnitude, ForceMode2D.Impulse);
+     
+   
+    
+    
+}
+
+    }
+}
+
+    
 
   
     
 
-}
 
-public void DetachHook()
-{
-    if (curHook != null)
-    {
-        // Perform any cleanup if necessary, like disabling the hinge joint or removing the rope visuals
-        // ...
 
-        curHook.GetComponent<Hook>().DestroyRope();; // Destroy the current hook
-        isGrappling = false;
-        curHook = null; // Nullify the reference to allow new hook instantiation
 
-    }
-}
 void Swing(Vector2 anchorPoint)
 {
     //if (swingJoint == null)
@@ -113,15 +158,17 @@ public void Grapple()
 
     void checkMovementInput()
     { 
-        //can only move if touching another object
+        bool isSwinging = curHook != null; // Assuming this means the character is currently swinging
+        Vector2 movementForce = Vector2.zero;
         //essentially prevents flying-like movement
-       
+        
+        
 
-        if (Input.GetAxis("Horizontal") == 0)
+        if (Input.GetAxis("Horizontal") == 0 && !isBoostActive && !isSwinging && !isBoost2)
         {
             RigidBody.velocity = new Vector2(0, RigidBody.velocity.y);
         }
-        else if (Input.GetAxis("Horizontal") > 0)
+        else if (Input.GetAxis("Horizontal") > 0 && !isBoostActive && !isSwinging && !isBoost2)
         {
             if (RigidBody.position.x < cameraMaxX)
             {
@@ -129,7 +176,7 @@ public void Grapple()
                 RigidBody.velocity = new Vector2(transform.right.x * 4, RigidBody.velocity.y);
             }
         }
-        else if (Input.GetAxis("Horizontal") < 0)
+        else if (Input.GetAxis("Horizontal") < 0 && !isBoostActive && !isSwinging && !isBoost2)
         {
             if (RigidBody.position.x > cameraMinX)
             {
@@ -141,16 +188,36 @@ public void Grapple()
         {
             //GetComponent<Rigidbody>().velocity = new Vector2(0, GetComponent<Rigidbody>().velocity.y);
         }
+        if(isSwinging)
+        {
+            isBoost2 = false;
+            float desiredSpeed = Input.GetAxis("Horizontal") * 25;
+
+    // Calculate the difference from the current speed
+           float speedDifference = desiredSpeed - RigidBody.velocity.x;
+
+    // Apply force based on the speed difference and Rigidbody's mass
+    // Ensure there's a minimum force applied for movement
+           float force = Mathf.Clamp(speedDifference * RigidBody.mass, -50, 50);
+
+    // Apply the force
+           RigidBody.AddForce(new Vector2(force, 0), ForceMode2D.Force);
+          
+    
+
+        }
+
+     
         // Check for grapple input
         if (!endGame && Input.GetMouseButtonDown(0))
         {
             Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             Vector2 direction = (mousePosition - (Vector2)transform.position).normalized;
             // Offset the ray start position slightly in the direction of the ray to avoid hitting character's collider
-            float colliderAvoidanceOffset = 1f; // Adjust this value as needed
+            float colliderAvoidanceOffset = 1.4f; // Adjust this value as needed
             Vector2 rayStart = (Vector2)transform.position + direction * colliderAvoidanceOffset;
             Debug.DrawRay(rayStart, direction * 3000f, Color.red, 5f);
-            RaycastHit2D hit = Physics2D.Raycast(rayStart, direction, 7f);
+            RaycastHit2D hit = Physics2D.Raycast(rayStart, direction, 9f);
 
 
             if (hit.collider != null && (hit.collider.gameObject.CompareTag("Branch") || (hit.collider.gameObject.CompareTag("Leaf"))))
@@ -191,7 +258,23 @@ public void Grapple()
     {
         Grapple();
     }
+
     }
+        void OnCollisionEnter2D(Collision2D collision)
+{
+    // Check if the collided object is not the hook
+    if (collision.gameObject.tag != "Hook") // Assuming your hook has a tag "Hook"
+    {   Debug.Log("collision for move");
+        // If the collision is with anything but the hook, deactivate the boost
+        isBoostActive = false;
+        isBoost2 = false;
+
+        // Optionally, reset the character's velocity or apply any other logic needed when the boost ends due to collision
+        Rigidbody2D rb = GetComponent<Rigidbody2D>();
+        // You can adjust the character's velocity here if needed, for example:
+        // rb.velocity = new Vector2(0, rb.velocity.y); // Resets horizontal velocity, keeps vertical
+    }
+}
 
      
 
@@ -206,11 +289,25 @@ public void Grapple()
 
     void Jump()
     {   
+        if(isGrappling)
+        {
+        DetachHook();    
+        isGrappling = false;
+        
+
+        }
+        else if(!isGrappling && curHook != null)
+        {
+        DetachHook();
+        }
+        else
+        {
+
          if (touchingPlatform() || jump_buffer > 0)
         {
         Rigidbody2D rb = GetComponent<Rigidbody2D>();
         float jumpAngle = 80f;
-        //animator.SetBool("IsJumping", true);
+        
         if(transform.right == Vector3.left)
         {
             jumpAngle = 100f;
@@ -220,16 +317,18 @@ public void Grapple()
         Vector3 jumpDirection = new Vector2(Mathf.Cos(jumpRadians), Mathf.Sin(jumpRadians));
         //rb.AddForce(jumpDirection.normalized * jumpHeight, ForceMode2D.Impulse);
         rb.velocity = new Vector3(rb.velocity.x, 10f);
+        
+        }
+
+        }
+
+
         if (swingJoint != null)
     {
         Destroy(swingJoint);
         swingJoint = null;
     }
-        }
-        if (isGrappling)
-    {
-        isGrappling = false;
-    }        
+           
     }
 
     bool isControllerConnected()
