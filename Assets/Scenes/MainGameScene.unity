@@ -1278,6 +1278,14 @@ PrefabInstance:
       propertyPath: m_SortingOrder
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1246316190109184366, guid: dc9015d003ec8944684ae9b73f9a2126, type: 3}
+      propertyPath: m_Size.x
+      value: 3.8788042
+      objectReference: {fileID: 0}
+    - target: {fileID: 1246316190109184366, guid: dc9015d003ec8944684ae9b73f9a2126, type: 3}
+      propertyPath: m_Size.y
+      value: 4.287099
+      objectReference: {fileID: 0}
     - target: {fileID: 3167700196419486331, guid: dc9015d003ec8944684ae9b73f9a2126, type: 3}
       propertyPath: m_Name
       value: Branch (8)
@@ -5016,6 +5024,14 @@ PrefabInstance:
       propertyPath: jumpHeight
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: -678756429538300980, guid: 40bc8399ebdfc4c67a355e57f6f03e4e, type: 3}
+      propertyPath: normalSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 916cba4ec031142ba8d914574461f2f4, type: 3}
+    - target: {fileID: -678756429538300980, guid: 40bc8399ebdfc4c67a355e57f6f03e4e, type: 3}
+      propertyPath: clingingSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 4cdd3f524e2dc43e3a79e4a7a267588e, type: 3}
     - target: {fileID: 3975277025533397318, guid: 40bc8399ebdfc4c67a355e57f6f03e4e, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.35

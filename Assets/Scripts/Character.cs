@@ -23,8 +23,9 @@ public class Character : MonoBehaviour
     private bool isJumping = false;
     private bool isBoostActive = false;
     private bool isBoost2= false;
-    
-
+    public Sprite normalSprite;
+    public Sprite clingingSprite;
+    private SpriteRenderer spriteRenderer;
 
 
     void Start()
@@ -33,6 +34,8 @@ public class Character : MonoBehaviour
         RigidBody = GetComponent<Rigidbody2D>();
         capsuleCollider = GetComponent<CapsuleCollider2D>();
         animator = GetComponent<Animator>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        spriteRenderer.sprite = normalSprite;
     }
 
 
@@ -260,26 +263,6 @@ public void Grapple()
     }
 
     }
-        void OnCollisionEnter2D(Collision2D collision)
-{
-    // Check if the collided object is not the hook
-    if (collision.gameObject.tag != "Hook") // Assuming your hook has a tag "Hook"
-    {   Debug.Log("collision for move");
-        // If the collision is with anything but the hook, deactivate the boost
-        isBoostActive = false;
-        isBoost2 = false;
-
-        // Optionally, reset the character's velocity or apply any other logic needed when the boost ends due to collision
-        Rigidbody2D rb = GetComponent<Rigidbody2D>();
-        // You can adjust the character's velocity here if needed, for example:
-        // rb.velocity = new Vector2(0, rb.velocity.y); // Resets horizontal velocity, keeps vertical
-    }
-}
-
-     
-
-
-    
 
     bool touchingPlatform() 
     {
@@ -348,6 +331,27 @@ public void Grapple()
     {
         jump_buffer = .15f;
         isJumping = false;
+        spriteRenderer.sprite = normalSprite;
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag != "Hook")
+        {
+            Debug.Log("collision for move");
+            isBoostActive = false;
+            isBoost2 = false;
+            Rigidbody2D rb = GetComponent<Rigidbody2D>();
+        }
+
+        if (collision.contacts[0].normal.x != 0 && capsuleCollider.bounds.min.y < collision.GetContact(0).point.y)
+        {
+            float halfwayY = collision.collider.bounds.center.y + collision.collider.bounds.extents.y;
+            if (transform.position.y < (halfwayY * 1.05))
+            {
+                spriteRenderer.sprite = clingingSprite;
+            }
+        }
     }
 
 } 
