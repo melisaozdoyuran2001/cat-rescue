@@ -400,33 +400,34 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Mission: Rescue cats stranded high in the tree. Use agility and precision
-    to navigate through branches.
+  m_text: 'Mission: Rescue the cats at the top of the trees! Optimize speed to get
+    the fastest high score
 
 
     Controls:
 
-    Move: A/D to go left/right.
+    Move: A/D or arrow keys to go left/right
 
     Jump:
-    W to leap upwards or across.
+    Space to leap upwards or across
 
-    Grapple: Click on nodes to swing or pull yourself
-    towards them. Release to let go.
+    Grapple: Click on logs/leaves to attach
+    to them. Press E to be pulled in. Jump (SPACE) to let go
 
 
     Tips:
 
-    Jump and grapple to move efficiently.
+    If
+    an object is too far to jump to, try grappling!
 
-    Timing
-    is key for grappling; aim for distant nodes to swing further.
+    Holding down a direction
+    key lets you cling to the side of objects!
 
-    Explore different
-    paths; some may be easier to navigate.
+    Consider multiple paths!
 
-    Good luck on your rescue mission!
 
+    Good
+    Luck With Your Mission!
 
 
 

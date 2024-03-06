@@ -257,7 +257,7 @@ public void Grapple()
                 //DetachHook();
             }
         }
-            if (Input.GetKeyDown(KeyCode.G))
+            if (Input.GetKeyDown(KeyCode.E))
     {
         Grapple();
     }
