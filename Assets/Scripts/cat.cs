@@ -17,9 +17,12 @@ public class cat : MonoBehaviour
     public float winCharPosX = -1.06f;
     public float winCharPosY = 46.32f;
     private bool noWinYet = true;
+    public AudioClip meow;
+    AudioSource audioSource;
 
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         winText = GameObject.Find("WinText").GetComponent<TextMeshProUGUI>();
         winText.text = "";
         restartButton = GameObject.Find("RestartButton").GetComponent<Button>();
@@ -31,7 +34,7 @@ public class cat : MonoBehaviour
         }
         restartButton.onClick.AddListener(NextScene);
         noWinYet = true;
-
+       
     }
 
     void Update()
@@ -46,6 +49,7 @@ public class cat : MonoBehaviour
             if (other.gameObject == character)
             {
                 noWinYet = false;
+                audioSource.PlayOneShot(meow, 1);
                 character.GetComponent<Rigidbody2D>().gravityScale = 0;
                 character.transform.position = new Vector2(winCharPosX, winCharPosY);
                 character.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezePositionY | RigidbodyConstraints2D.FreezeRotation;
