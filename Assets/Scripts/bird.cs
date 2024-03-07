@@ -38,7 +38,7 @@ public class bird : MonoBehaviour
             isTriggered = true; 
         }
         //trigger.enabled = false;
-        audioSource.PlayOneShot(wingFlap, 1);
+        //audioSource.PlayOneShot(wingFlap, 1);
     }
 
     void Update()
