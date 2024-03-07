@@ -15,15 +15,20 @@ public class bird : MonoBehaviour
     private float lastY;
     private Rigidbody2D rb;
     private float updateCounter;
-    public bool isTriggered = false; 
+    public bool isTriggered = false;
+    private EdgeCollider2D trigger;
+    public AudioClip wingFlap;
+    AudioSource audioSource;
 
     // Start and Update methods...
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        trigger = GetComponent<EdgeCollider2D>();
         lastX = transform.position.x;
         lastY = transform.position.y;
+        audioSource = GetComponent<AudioSource>();
     }
 
      void OnTriggerEnter2D(Collider2D other)
@@ -32,6 +37,8 @@ public class bird : MonoBehaviour
         {
             isTriggered = true; 
         }
+        //trigger.enabled = false;
+        //audioSource.PlayOneShot(wingFlap, 1);
     }
 
     void Update()

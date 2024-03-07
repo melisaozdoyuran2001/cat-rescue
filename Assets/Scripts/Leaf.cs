@@ -20,6 +20,8 @@ public class Leaf : MonoBehaviour
     private Color yelllow_ = new Color32(235, 207, 24, 255);
     private Color orange_ = new Color32(235, 122, 24, 255);
     private Color red_ = new Color32(168, 49, 24, 255);
+    public AudioClip Fall;
+    AudioSource audioSource;
 
     // Start is called before the first frame update
     void Start()
@@ -28,6 +30,7 @@ public class Leaf : MonoBehaviour
         RB = GetComponent<Rigidbody2D>();
         characterRigidbody = character.GetComponent<Rigidbody2D>();
         sprite = GetComponent<SpriteRenderer>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -123,6 +126,7 @@ public class Leaf : MonoBehaviour
             }
             capsuleCollider.enabled = false;
             sprite.color = red_;
+            audioSource.PlayOneShot(Fall, 1);
         }
     }
 
