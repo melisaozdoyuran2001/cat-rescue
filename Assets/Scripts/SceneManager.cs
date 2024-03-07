@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class SceneManager : MonoBehaviour
 {
     public void StartGame() {
-         UnityEngine.SceneManagement.SceneManager.LoadScene(0);
+         UnityEngine.SceneManagement.SceneManager.LoadScene(2);
     }
 
     public void Instructions() {
@@ -14,7 +14,7 @@ public class SceneManager : MonoBehaviour
     }
 
     public void OpenStartScene() {
-        UnityEngine.SceneManagement.SceneManager.LoadScene(2);
+        UnityEngine.SceneManagement.SceneManager.LoadScene(0);
     }
     public void Level1ToLevel2()
     {
@@ -47,6 +47,6 @@ public class SceneManager : MonoBehaviour
 
     public void ReturnToStart()
     {
-        UnityEngine.SceneManagement.SceneManager.LoadScene(2);
+        UnityEngine.SceneManagement.SceneManager.LoadScene(0);
     }
 }
