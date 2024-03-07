@@ -10,7 +10,7 @@ public class Timer : MonoBehaviour
     private static bool timerInitialized = false;
 
     public TextMeshProUGUI timerText;
-    private float timeElapsed;
+    public float timeElapsed;
     private bool timerRunning = true;
 
     void Start()
