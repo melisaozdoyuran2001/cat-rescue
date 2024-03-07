@@ -7,20 +7,21 @@ public class BestTime : MonoBehaviour
     public float currentTime; 
     
     public TextMeshProUGUI bestTimerText;
-    public Timer timer; 
 
     private float bestTime;
 
     void Start()
     {
-        currentTime = timer.timeElapsed;
+        bestTime = PlayerPrefs.GetFloat("BestTime", float.MaxValue);
+        Debug.Log("Loaded Best Time: " + bestTime);
+        currentTime = Timer.GetCurrentTime();
         UpdateBestTime(currentTime);
         
-        bestTime = PlayerPrefs.GetFloat("BestTime", float.MaxValue);
     }
 
     public void UpdateBestTime(float currentTime)
     {
+        Debug.Log("is " + currentTime +" smaller than " + bestTime);
         // If the current time is better than the best time, update the best time.
         if (currentTime < bestTime)
         {

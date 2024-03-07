@@ -26,6 +26,12 @@ public class Timer : MonoBehaviour
         timeElapsed = staticTimeElapsed;
     }
 
+    public static float GetCurrentTime()
+    {
+        return staticTimeElapsed;
+    }
+
+
     void Update()
     {
         if (!timerRunning) return;
